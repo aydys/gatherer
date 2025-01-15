@@ -1,0 +1,14 @@
+name: Gatherer
+
+services:
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+      - gem_cache:/gems
+
+volumes:
+  gem_cache:
