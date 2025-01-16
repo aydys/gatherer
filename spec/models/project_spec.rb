@@ -14,4 +14,10 @@ RSpec.describe Project do
     puts task.frozen?
     expect(project).not_to be_done
   end
+
+  it "marks a project done if its tasks are done" do
+    project.tasks << task
+    task.mark_completed
+    expect(project).to be_done
+  end
 end
