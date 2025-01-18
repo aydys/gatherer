@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe CreatesProject do
   let(:creator) { CreatesProject.new(
-    name: "Project Runway", task_string: task_string) }
+    name: name, task_string: task_string) }
 
   describe "initialization" do
     let(:task_string) { "" }
+    let(:name) { "Project Runway" }
 
     it "creates a project given a name" do
       creator.build
@@ -14,6 +15,7 @@ RSpec.describe CreatesProject do
   end
 
   describe "task string parsing" do
+    let(:name) { "Project Runway" }
     let(:tasks) { creator.convert_string_to_tasks }
 
     describe "with an empty string" do
@@ -76,5 +78,15 @@ RSpec.describe CreatesProject do
       specify { expect(creator.project.tasks.size).to eq(2) }
       specify { expect(creator.project).not_to be_a_new_record }
     end
-  end 
+  end
+  
+  describe "failure cases" do
+    let(:name) { "" }
+    let(:task_string) { "" }
+
+    it "fails when trying to save a project with no name" do
+      creator.create
+      expect(creator).not_to be_a_success
+    end
+  end
 end
