@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Project do
+  it_should_behave_like "sizeable"
+  
   let(:project) { Project.new }
   let(:task) { Task.new }
   
