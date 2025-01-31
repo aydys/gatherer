@@ -39,12 +39,10 @@ RSpec.describe Project do
   describe "estimates" do
     let(:project) { FactoryBot.build_stubbed(:project,
       tasks: [newly_done, old_done, small_not_done, large_not_done]) }
-    let(:newly_done) { FactoryBot.build_stubbed(:task, 
-      size: 3, completed_at: 1.day.ago) }
-    let(:old_done) { FactoryBot.build_stubbed(:task, 
-      size: 2, completed_at: 6.months.ago) }
-    let(:small_not_done) { FactoryBot.build_stubbed(:task, size: 1) }
-    let(:large_not_done) { FactoryBot.build_stubbed(:task, size: 4) }
+    let(:newly_done) { FactoryBot.build_stubbed(:task, :newly_complete) }
+    let(:old_done) { FactoryBot.build_stubbed(:task, :long_complete, :small) }
+    let(:small_not_done) { FactoryBot.build_stubbed(:task, :small) }
+    let(:large_not_done) { FactoryBot.build_stubbed(:task, :large) }
 
     it "can calculate total size" do
       expect(project).to be_of_size(10)
@@ -52,7 +50,7 @@ RSpec.describe Project do
     end
 
     it "can calculate remaining size" do
-      expect(project).to be_of_size(5).for_incomplete_tasks_only
+      expect(project).to be_of_size(6).for_incomplete_tasks_only
     end
 
     it "knows its velocity" do
@@ -64,7 +62,7 @@ RSpec.describe Project do
     end
 
     it "knows its projected days remaining" do 
-      expect(project.projected_days_remaining).to eq(35)
+      expect(project.projected_days_remaining).to eq(42)
     end
 
     it "knows if it is not on schedule" do
