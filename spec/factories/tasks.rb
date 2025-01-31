@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:title) { |n| "Task #{n}" }
     size 3
     completed_at nil
+    project
 
     trait :small do
       size 1
@@ -10,14 +11,6 @@ FactoryBot.define do
 
     trait :large do
       size 5
-    end
-    
-    trait :soon do
-      due_date { 1.day.from_now }
-    end
-
-    trait :later do
-      due_date { 1.month.from_now }
     end
 
     trait :newly_complete do
@@ -30,12 +23,12 @@ FactoryBot.define do
 
     factory :trivial do
       small
-      later
+      association :project, :later
     end
 
     factory :panic do
       large
-      soon
+      association :project, :soon
     end
   end
 end
