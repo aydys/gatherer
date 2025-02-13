@@ -63,6 +63,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.0'
+  gem 'cucumber-rails', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
