@@ -6,9 +6,17 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "4000:4000"
     volumes:
       - .:/usr/app
       - gem_cache:/gems
+
+  selenium_chrome:
+    image: selenium/standalone-chrome
+    logging:
+      driver: none
+    ports:
+      - "4444:4444"
 
 volumes:
   gem_cache:
